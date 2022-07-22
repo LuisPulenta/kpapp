@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kpapp/components/loader_component.dart';
 import 'package:kpapp/helpers/constants.dart';
+import 'package:kpapp/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -62,87 +63,48 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff8c8c94),
-      body: Stack(
-        children: <Widget>[
-          Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff242424),
-                    Color(0xff8c8c94),
-                  ],
-                ),
-              ),
-              child: Column(
-                children: [
-                  Image.asset(
-                    "assets/kplogo.png",
-                    height: 200,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        Constants.version,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
-          Transform.translate(
-            offset: const Offset(0, -60),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  elevation: 15,
-                  margin: const EdgeInsets.only(
-                      left: 20, right: 20, top: 260, bottom: 20),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 35, vertical: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        _showEmail(),
-                        _showPassword(),
-                        const SizedBox(
-                          height: 10,
+      //appBar: AppBar(title: Text('LoginScreen')),
+      body: BackGround(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Transform.translate(
+                offset: const Offset(0, -0),
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 15,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, top: 260, bottom: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 35, vertical: 20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            _showEmail(),
+                            _showPassword(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _showRememberme(),
+                            _showButtons(),
+                          ],
                         ),
-                        _showRememberme(),
-                        _showButtons(),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+              const SizedBox(
+                height: 250,
+              ),
+            ],
           ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
-              ],
-            ),
-          ),
-          _showLoader
-              ? const LoaderComponent(
-                  text: 'Por favor espere...',
-                )
-              : Container(),
-        ],
+        ),
       ),
     );
   }
@@ -246,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF781f1e),
+                primary: const Color(0XFF3658a8),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
