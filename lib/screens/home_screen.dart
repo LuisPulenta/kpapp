@@ -3,8 +3,6 @@ import 'package:kpapp/screens/screens.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
 //------------------------------------------------------------------------
 //------------------------ Pantalla --------------------------------------
 //------------------------------------------------------------------------
@@ -45,7 +43,10 @@ class _Paginas extends StatelessWidget {
             //physics: const NeverScrollableScrollPhysics(),
             controller: navegacionModel.pageController,
             onPageChanged: (page) {
-              navegacionModel.paginaActual = page;
+              if (!navegacionModel.desdeDots) {
+                navegacionModel.paginaActual = page;
+              }
+              navegacionModel.desdeDots = false;
             },
             children: const [
               Tab1Page(),
@@ -69,7 +70,6 @@ class _Paginas extends StatelessWidget {
 
 class _Navegacion extends StatelessWidget {
   @override
-  int currentIndex = 0;
   Widget build(BuildContext context) {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
 
@@ -79,10 +79,10 @@ class _Navegacion extends StatelessWidget {
         GestureDetector(
             child: _indicator(navegacionModel.paginaActual == 0),
             onTap: () {
-              currentIndex = 0;
               navegacionModel.paginaActual = 0;
+              navegacionModel.desdeDots = true;
               navegacionModel.pageController.animateToPage(
-                currentIndex,
+                navegacionModel.paginaActual,
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOut,
               );
@@ -90,10 +90,10 @@ class _Navegacion extends StatelessWidget {
         GestureDetector(
             child: _indicator(navegacionModel.paginaActual == 1),
             onTap: () {
-              currentIndex = 1;
               navegacionModel.paginaActual = 1;
+              navegacionModel.desdeDots = true;
               navegacionModel.pageController.animateToPage(
-                currentIndex,
+                navegacionModel.paginaActual,
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOut,
               );
@@ -101,10 +101,10 @@ class _Navegacion extends StatelessWidget {
         GestureDetector(
             child: _indicator(navegacionModel.paginaActual == 2),
             onTap: () {
-              currentIndex = 2;
               navegacionModel.paginaActual = 2;
+              navegacionModel.desdeDots = true;
               navegacionModel.pageController.animateToPage(
-                currentIndex,
+                navegacionModel.paginaActual,
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOut,
               );
@@ -120,6 +120,8 @@ class _Navegacion extends StatelessWidget {
 
 class _NavegacionModel with ChangeNotifier {
   int _paginaActual = 0;
+  bool _desdeDots = false;
+
   final PageController _pageController = PageController(initialPage: 0);
 
   int get paginaActual {
@@ -130,6 +132,15 @@ class _NavegacionModel with ChangeNotifier {
     _paginaActual = valor;
     _pageController.animateToPage(valor,
         duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+    notifyListeners();
+  }
+
+  bool get desdeDots {
+    return _desdeDots;
+  }
+
+  set desdeDots(bool valor) {
+    _desdeDots = valor;
     notifyListeners();
   }
 
