@@ -3,6 +3,8 @@ import 'package:kpapp/screens/screens.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
 //------------------------------------------------------------------------
 //------------------------ Pantalla --------------------------------------
 //------------------------------------------------------------------------

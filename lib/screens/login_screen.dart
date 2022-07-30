@@ -1,8 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:kpapp/components/loader_component.dart';
-import 'package:kpapp/helpers/constants.dart';
 import 'package:kpapp/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,8 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
 //************************** DEFINICION DE VARIABLES **************************
 //*****************************************************************************
 
-  bool _isRunning = false;
-
   String _email = '';
   String _password = '';
   String _emailError = '';
@@ -30,17 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _rememberme = true;
   bool _passwordShow = false;
-  bool _showLoader = false;
-
-  Position _positionUser = const Position(
-      longitude: 0,
-      latitude: 0,
-      timestamp: null,
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
 
 //*****************************************************************************
 //************************** INIT STATE ***************************************
@@ -49,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _isRunning = false;
     _getPosition();
     setState(() {});
   }
@@ -189,31 +173,86 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _showButtons() {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Expanded(
-            child: ElevatedButton(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.login),
-                  SizedBox(
-                    width: 20,
+      margin: const EdgeInsets.only(left: 10, right: 10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.login),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text('Iniciar Sesión'),
+                    ],
                   ),
-                  Text('Iniciar Sesión'),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0XFF3658a8),
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0XFF3658a8),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: () => _login(),
                 ),
               ),
-              onPressed: () => _login(),
-            ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.newspaper),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text('Noticias'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0XFF3658a8),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: () => _news(),
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.movie),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text('Películas'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0XFF3658a8),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: () => _movies(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -225,6 +264,22 @@ class _LoginScreenState extends State<LoginScreen> {
 //*****************************************************************************
 
   void _login() async {}
+
+//*****************************************************************************
+//************************** METODO _news *************************************
+//*****************************************************************************
+
+  void _news() async {
+    Navigator.pushNamed(context, 'news');
+  }
+
+//*****************************************************************************
+//************************** METODO _movies ***********************************
+//*****************************************************************************
+
+  void _movies() async {
+    Navigator.pushNamed(context, 'movies');
+  }
 
 //*****************************************************************************
 //************************** METODO VALIDATEFIELDS ****************************
@@ -332,9 +387,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     var connectivityResult = await Connectivity().checkConnectivity();
 
-    if (connectivityResult != ConnectivityResult.none) {
-      _positionUser = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-    }
+    if (connectivityResult != ConnectivityResult.none) {}
   }
 }

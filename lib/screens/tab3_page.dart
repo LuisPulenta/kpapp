@@ -42,7 +42,7 @@ class Tab3Page extends StatelessWidget {
                           TextSpan(
                               text: "Recuerde que esta es una App ",
                               style: style1),
-                          TextSpan(
+                          const TextSpan(
                               text: "demo",
                               style: TextStyle(
                                   fontSize: tamletra,
@@ -141,7 +141,7 @@ class Tab3Page extends StatelessWidget {
                       strutStyle: StrutStyle(fontSize: 20),
                     )),
                 ElevatedButton(
-                  child: Text('Ir al Login'),
+                  child: const Text('Ir al Login'),
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0XFF3658a8),
                     minimumSize: const Size(150, 50),

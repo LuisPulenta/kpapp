@@ -17,9 +17,9 @@ class BackGround extends StatelessWidget {
       child: Stack(
         children: [
           Column(
-            children: [
-              const _UpBox(),
-              const _DownBox(),
+            children: const [
+              _UpBox(),
+              _DownBox(),
             ],
           ),
           const HeaderLogo(),
